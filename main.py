@@ -123,7 +123,7 @@ def contains(r1, r2):
 def main():
     index = 0
 
-    pointsCCC = np.empty([5, 2])
+    pointsCCC = []
 
     pointsObj = np.array([[-3.7, -2.275, 0], [0, -2.275, 0], [3.7, -2.275, 0], [-3.7, 2.275, 0], [3.7, 2.275, 0]])
 
@@ -204,11 +204,17 @@ def main():
 
                 cv2.drawMarker(img, (int(cX), int(cY)), (255, 0, 0))
 
-                pointsCCC[index][0] = cX
-                pointsCCC[index][1] = cY
-                index += 1
-
+                if index == 0:
+                    xy = [cX, cY]
+                    pointsCCC.append(xy)
+                else:
+                    pointsCCC[index][0] = cX
+                    pointsCCC[index][1] = cY
+                    index += 1
+    pointsCCC = np.asarray(pointsCCC)
     orderedTargets = order_targets(pointsCCC)
+
+    orderedTargets = np.reshape(orderedTargets, (5, 2))
 
     # print("Raw Points %s" % pointsCCC)
     # print("Ordered targets: %s" % orderedTargets)
@@ -225,7 +231,7 @@ def main():
 
     K = np.array([[531, 0, 320], [0, 531, 240], [0, 0, 1]]).astype(float)
 
-    isPoseFound, rvec, tvec = cv2.solvePnP(pointsObj, pointsCCC, K, distCoeffs=None)
+    isPoseFound, rvec, tvec = cv2.solvePnP(pointsObj, orderedTargets, K, distCoeffs=None)
 
     # print(isPoseFound)
 
@@ -251,13 +257,15 @@ def main():
     pImg = pImg.reshape(-1, 2)  # reshape from size (N,1,2) to (N,2)
 
     cv2.line(img, tuple(np.int32(pImg[0])),
+             tuple(np.int32(pImg[1])), (0, 0, 255), 2)  # x (red)
+
+    cv2.line(img, tuple(np.int32(pImg[0])),
              tuple(np.int32(pImg[2])), (0, 255, 0), 2)  # y (green)
 
     cv2.line(img, tuple(np.int32(pImg[0])),
              tuple(np.int32(pImg[3])), (255, 0, 0), 2)  # z (blue) ..
 
-    cv2.line(img, tuple(np.int32(pImg[0])),
-             tuple(np.int32(pImg[1])), (0, 0, 255), 2)  # x (red)
+
 
     np.set_printoptions(suppress=True, precision=2)
     rvecX = str(rvec[0]).strip('[]')
@@ -268,8 +276,6 @@ def main():
     tvecX = str(tvec[0]).strip('[]')
     tvecY = str(tvec[1]).strip('[]')
     tvecZ = str(tvec[2]).strip('[]')
-
-
 
     cv2.putText(img, ('tvec: ' + '(' + tvecX + ', ' + tvecY + ', ' + tvecZ + ')'), org=(0, 420), fontFace=3,
 
