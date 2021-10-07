@@ -104,6 +104,12 @@ def findClosest(allPoints, i0, excluded):
     return iClosest
 
 
+def drawTargetNumbers(img, number, x, y):
+    cv2.putText(img, str(number), org=(int(x - 7), int(y - 7)), fontFace=2,
+
+                fontScale=.5, color=(0, 0, 255))
+
+
 def contains(r1, r2):
     return r1[0][0] < r2[0][0] < r2[1][0] < r1[1][0] and r1[0][1] < r2[0][1] < r2[1][1] < r1[1][1]
 
@@ -269,21 +275,12 @@ def main():
 
                 fontScale=.5, color=(0, 255, 255))
 
-
-
-    # cv2.putText(img, str(tvec), org=(50, 200), fontFace=3,
-    #
-    #             fontScale=.5, color=(0, 0, 255))
-
     cv2.imshow("Image", img)
 
     cv2.waitKey(0)
 
 
-def drawTargetNumbers(img, number, x, y):
-    cv2.putText(img, str(number), org=(int(x - 7), int(y - 7)), fontFace=3,
 
-                fontScale=.75, color=(0, 0, 255))
 
 
 if __name__ == '__main__':
