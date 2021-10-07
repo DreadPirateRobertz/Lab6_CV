@@ -250,7 +250,6 @@ def main():
 
     pImg = pImg.reshape(-1, 2)  # reshape from size (N,1,2) to (N,2)
 
-
     cv2.line(img, tuple(np.int32(pImg[0])),
              tuple(np.int32(pImg[2])), (0, 255, 0), 2)  # y (green)
 
@@ -260,29 +259,29 @@ def main():
     cv2.line(img, tuple(np.int32(pImg[0])),
              tuple(np.int32(pImg[1])), (0, 0, 255), 2)  # x (red)
 
-
+    np.set_printoptions(suppress=True, precision=2)
     rvecX = str(rvec[0]).strip('[]')
     rvecY = str(rvec[1]).strip('[]')
     rvecZ = str(rvec[2]).strip('[]')
 
+    np.set_printoptions(suppress=True, precision=1)
     tvecX = str(tvec[0]).strip('[]')
     tvecY = str(tvec[1]).strip('[]')
     tvecZ = str(tvec[2]).strip('[]')
 
-    cv2.putText(img, ('tvec: ' + '(' + tvecX +', ' + tvecY + ', ' + tvecZ + ')'), org=(0, 420), fontFace=3,
+
+
+    cv2.putText(img, ('tvec: ' + '(' + tvecX + ', ' + tvecY + ', ' + tvecZ + ')'), org=(0, 420), fontFace=3,
 
                 fontScale=.5, color=(0, 255, 255))
 
-    cv2.putText(img, ('rvec: ' + '(' + rvecX +', ' + rvecY + ', ' + rvecZ + ')'), org=(0, 460), fontFace=3,
+    cv2.putText(img, ('rvec: ' + '(' + rvecX + ', ' + rvecY + ', ' + rvecZ + ')'), org=(0, 460), fontFace=3,
 
                 fontScale=.5, color=(0, 255, 255))
 
     cv2.imshow("Image", img)
 
     cv2.waitKey(0)
-
-
-
 
 
 if __name__ == '__main__':
