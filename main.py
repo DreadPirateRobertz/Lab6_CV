@@ -249,14 +249,16 @@ def main():
         cameraMatrix=K, distCoeffs=None)
 
     pImg = pImg.reshape(-1, 2)  # reshape from size (N,1,2) to (N,2)
-    cv2.line(img, tuple(np.int32(pImg[0])),
-             tuple(np.int32(pImg[1])), (0, 0, 255), 3)  # x (red)
+
 
     cv2.line(img, tuple(np.int32(pImg[0])),
-             tuple(np.int32(pImg[2])), (0, 255, 0), 3)  # y (green)
+             tuple(np.int32(pImg[2])), (0, 255, 0), 2)  # y (green)
 
     cv2.line(img, tuple(np.int32(pImg[0])),
-             tuple(np.int32(pImg[3])), (255, 0, 0), 3)  # z (blue)
+             tuple(np.int32(pImg[3])), (255, 0, 0), 2)  # z (blue)
+
+    cv2.line(img, tuple(np.int32(pImg[0])),
+             tuple(np.int32(pImg[1])), (0, 0, 255), 2)  # x (red)
 
 
     rvecX = str(rvec[0]).strip('[]')
