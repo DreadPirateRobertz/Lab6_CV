@@ -255,7 +255,7 @@ def main():
              tuple(np.int32(pImg[2])), (0, 255, 0), 2)  # y (green)
 
     cv2.line(img, tuple(np.int32(pImg[0])),
-             tuple(np.int32(pImg[3])), (255, 0, 0), 2)  # z (blue)
+             tuple(np.int32(pImg[3])), (255, 0, 0), 2)  # z (blue) ..
 
     cv2.line(img, tuple(np.int32(pImg[0])),
              tuple(np.int32(pImg[1])), (0, 0, 255), 2)  # x (red)
